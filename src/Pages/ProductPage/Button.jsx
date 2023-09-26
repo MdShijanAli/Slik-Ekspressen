@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import image from "../../assets/_W7A5101_fritlagt 1.png"
+import { Link } from "react-router-dom";
 
 const Button = () => {
 
@@ -17,11 +18,13 @@ const Button = () => {
 
   return (
     <div className="flex items-center justify-center h-screen">
+      <Link to="/product">
       <label htmlFor="add_order" >
           <div className="btn btn-xl text-xl capitalize font-semibold w-40 btn-success">
              Add Order
         </div>
       </label>
+      </Link>
       
 
 
@@ -52,7 +55,7 @@ const Button = () => {
 
           <div className='gap-5  flex items-center justify-end pr-5'>
                        <button className="btn w-40 mt-5 h-12 font-bold bg-[#C8F0BD] text-xl capitalize">Stop Packing</button>
-                       <button className="btn w-40 mt-5 h-12 font-bold bg-[#C8F0BD] text-xl capitalize">Start Mixing</button>
+                       <Link to="/product"><button className="btn w-40 mt-5 h-12 font-bold bg-[#C8F0BD] text-xl capitalize">Start Mixing</button></Link>
           </div>
 
 

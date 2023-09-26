@@ -21,7 +21,29 @@ const ProductPage = () => {
 
   const leftAllay = product?.data?.order_details?.bag_list[0]?.candies.filter(candie => candie.alley_side == "left")
   const rightAllay = product?.data?.order_details?.bag_list[0]?.candies.filter(candie => candie.alley_side == "right")
-  console.log(leftAllay)
+  // console.log(leftAllay)
+
+
+  const [selectedCandies, setSelectedCandies] = useState([]);
+
+  const handleCheckboxChange = (allay) => {
+    setSelectedCandies((prevSelectedCandies) => {
+      if (prevSelectedCandies.includes(allay)) {
+        // Candy is already selected, so remove it
+        return prevSelectedCandies.filter((candy) => candy !== allay);
+      } else {
+        // Candy is not selected, so add it
+        return [...prevSelectedCandies, allay];
+      }
+    });
+  };
+
+  const calculateTotalWeight = () => {
+    const totalWeight = selectedCandies.reduce((total, candy) => total + candy.weight, 0);
+    return totalWeight;
+    // console.log(totalWeight)
+  };
+
 
 
   return (
@@ -61,7 +83,7 @@ const ProductPage = () => {
                          </div>
                          <div className='flex gap-1 items-center'>
                              <GiNotebook />
-              <p className='text-lg'> Weight 0g of {product?.data?.order_details?.bag_list[0]?.total_bag_weight }g</p>
+              <p className='text-lg'> Weight {calculateTotalWeight()}g of {product?.data?.order_details?.bag_list[0]?.total_bag_weight }g</p>
                           </div>
                       </div>
                          
@@ -94,7 +116,10 @@ const ProductPage = () => {
                                       <div><p>{ allay?.total_amount} × { allay?.short_code}</p></div>
                                          <div className="form-control ">
                                                <label className="cursor-pointer label flex items-center">
-                                                 <input type="checkbox"  className="checkbox checkbox-info w-7 h-7" />
+                                                 <input onChange={() => handleCheckboxChange(allay)}
+                                                      type="checkbox"
+                                            checked={selectedCandies.includes(allay)}
+                                            className="checkbox checkbox-info w-7 h-7" />
                                                  <div className="label-text w-40 h-40">
                                                      <img src={allay?.image} alt="" />
                                                  </div>
@@ -122,7 +147,9 @@ const ProductPage = () => {
                                <div><p>{ allay?.total_amount} × { allay?.short_code}</p></div>
                            <div className="form-control ">
                                  <label className="cursor-pointer label flex items-center">
-                                   <input type="checkbox"  className="checkbox checkbox-info w-7 h-7" />
+                                   <input onChange={() => handleCheckboxChange(allay)}
+                                                      type="checkbox"
+                                            checked={selectedCandies.includes(allay)} className="checkbox checkbox-info w-7 h-7" />
                                    <div className="label-text w-40 h-40">
                                        <img src={allay?.image} alt="" />
                                    </div>
