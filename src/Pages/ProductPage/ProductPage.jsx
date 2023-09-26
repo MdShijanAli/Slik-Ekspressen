@@ -1,14 +1,34 @@
 
+import { useEffect, useState } from 'react';
 import { BiSolidCheckbox } from 'react-icons/bi';
 import { GiNotebook } from 'react-icons/gi';
 
 
 const ProductPage = () => {
+
+  const [product, setProduct] = useState({});
+  // const [candies, setCandies] = useState({});
+
+  useEffect(() => {
+    fetch('packing.json')
+      .then(res => res.json())
+      .then(data => {
+      setProduct(data)
+    })
+  }, [])
+  
+  // console.log(product)
+
+  const leftAllay = product?.data?.order_details?.bag_list[0]?.candies.filter(candie => candie.alley_side == "left")
+  const rightAllay = product?.data?.order_details?.bag_list[0]?.candies.filter(candie => candie.alley_side == "right")
+  console.log(leftAllay)
+
+
   return (
     <div>
       <div className="flex justify-between px-10 my-3">
         <div>
-           <p className='text-2xl font-semibold'>DEV-10013968</p>
+           <p className='text-2xl font-semibold'>DEV-{product?.data?.order_details?.bag_list[0]?.bag_tracking_id }</p>
         </div>
         <div>
           <p className='flex gap-1 items-center text-lg font-semibold'><BiSolidCheckbox />
@@ -22,11 +42,11 @@ const ProductPage = () => {
                       <div className='flex items-center gap-3'>
                             <div className='flex gap-1 items-center'>
                             <GiNotebook />
-                                <p className='text-lg'>  DEV-10013968</p>
+              <p className='text-lg'>  DEV-{product?.data?.order_details?.bag_list[0]?.bag_tracking_id }</p>
                             </div>
                             <div className='flex gap-1 items-center'>
                             <GiNotebook />
-                                <p className='text-lg'> Rafi</p>
+              <p className='text-lg'> { product?.data?.order_details?.shipping_address?.first_name }</p>
                             </div>
                       </div>
             
@@ -41,7 +61,7 @@ const ProductPage = () => {
                          </div>
                          <div className='flex gap-1 items-center'>
                              <GiNotebook />
-                             <p className='text-lg'> Weight 0g of 385g</p>
+              <p className='text-lg'> Weight 0g of {product?.data?.order_details?.bag_list[0]?.total_bag_weight }g</p>
                           </div>
                       </div>
                          
@@ -50,7 +70,7 @@ const ProductPage = () => {
           
         </div>
         <div>
-          <p className='font-semibold text-2xl'>Packing: Rafi</p>
+          <p className='font-semibold text-2xl'>Packing: { product?.data?.order_details?.shipping_address?.first_name }</p>
         </div>
       </div>
       <hr className='border-[2px]'/>
@@ -67,17 +87,25 @@ const ProductPage = () => {
                                 </div>
                       <hr className='border-yellow-600 mt-10 border-[1.5px]' />
                       
-                      <div className='flex items-center gap-3 justify-end my-10 mt-40'>  
-                                      <div><p>90×C041</p></div>
-                                    <div className="form-control ">
-                                          <label className="cursor-pointer label flex items-center">
-                                            <input type="checkbox"  className="checkbox checkbox-info w-7 h-7" />
-                                            <div className="label-text w-40 h-40">
-                                                <img src="https://cdn.shopify.com/s/files/1/0555/3461/6756/products/IMG_7998_clipped_rev_1.png?v=1633685415" alt="" />
-                                            </div>
-                                          </label>
-                                    </div>
-                                </div>
+                           <div className='mt-40'>
+                           {
+                                    leftAllay?.map(allay=> <div key={allay?.id} className='flex items-center gap-3 justify-end my-10'>  
+                                 
+                                      <div><p>{ allay?.total_amount} × { allay?.short_code}</p></div>
+                                         <div className="form-control ">
+                                               <label className="cursor-pointer label flex items-center">
+                                                 <input type="checkbox"  className="checkbox checkbox-info w-7 h-7" />
+                                                 <div className="label-text w-40 h-40">
+                                                     <img src={allay?.image} alt="" />
+                                                 </div>
+                                               </label>
+                                         </div>
+                                     </div>)
+                              }
+                              
+                            </div>
+                              
+                      
                     </div>
                     <div>
                                 <div className='flex gap-1 items-center justify-end my-3'>
@@ -89,17 +117,19 @@ const ProductPage = () => {
                                 </div>
                                 <hr className='border-yellow-600 border-[1.5px] mt-10' />
                       
-                      <div className='flex items-center gap-3 justify-end my-10'>  
-                                      <div><p>90×C041</p></div>
-                                    <div className="form-control ">
-                                          <label className="cursor-pointer label flex items-center">
-                                            <input type="checkbox"  className="checkbox checkbox-info w-7 h-7" />
-                                            <div className="label-text w-40 h-40">
-                                                <img src="https://cdn.shopify.com/s/files/1/0555/3461/6756/products/IMG_7998_clipped_rev_1.png?v=1633685415" alt="" />
-                                            </div>
-                                          </label>
-                                    </div>
-                                </div>
+                          {
+                             rightAllay?.map(allay=> <div key={allay?.id} className='flex items-center gap-3 justify-end my-10'>  
+                               <div><p>{ allay?.total_amount} × { allay?.short_code}</p></div>
+                           <div className="form-control ">
+                                 <label className="cursor-pointer label flex items-center">
+                                   <input type="checkbox"  className="checkbox checkbox-info w-7 h-7" />
+                                   <div className="label-text w-40 h-40">
+                                       <img src={allay?.image} alt="" />
+                                   </div>
+                                 </label>
+                           </div>
+                       </div>)
+                          }
                       
                     </div>
                     <div className='mr-20'>
@@ -119,7 +149,7 @@ const ProductPage = () => {
       </div>
 
       <div className='flex items-center justify-between px-10 my-5'>
-        <div><p className='text-2xl font-semibold'>Bag Weight: 385g</p></div>
+        <div><p className='text-2xl font-semibold'>Bag Weight: {product?.data?.order_details?.bag_list[0]?.total_bag_weight }g</p></div>
         <div><p className='text-2xl font-semibold'>1 out of 1  bag</p></div>
         <div className='gap-10 flex'>
         <button className="btn btn-lg w-56 bg-[#C8F0BD] text-xl capitalize">Previous Bag</button>
@@ -129,7 +159,7 @@ const ProductPage = () => {
       <hr />
 
       <div className='flex items-center justify-between px-10 my-5'>
-        <div><p className='text-2xl font-semibold'>Total Weight: 385g</p></div>
+        <div><p className='text-2xl font-semibold'>Total Weight: {product?.data?.order_details?.bag_list[0]?.total_bag_weight }g</p></div>
        
         <div className='gap-10 flex'>
            <button className="btn btn-lg w-56 disabled bg-[#D9E7D2] text-xl capitalize">Complete Order</button>
