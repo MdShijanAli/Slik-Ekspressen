@@ -18,7 +18,7 @@ const ProductPage = () => {
   }, [])
   
   // console.log(product)
-
+  const candyAllay = product?.data?.order_details?.bag_list[0]?.candies.filter(candie => candie.alley_side)
   const leftAllay = product?.data?.order_details?.bag_list[0]?.candies.filter(candie => candie.alley_side == "left")
   const rightAllay = product?.data?.order_details?.bag_list[0]?.candies.filter(candie => candie.alley_side == "right")
   // console.log(leftAllay)
@@ -44,7 +44,18 @@ const ProductPage = () => {
     // console.log(totalWeight)
   };
 
+  const isButtonDisabled = selectedCandies.length === 0;
 
+
+  const handleSelectAll = () => {
+    // Select all candies
+    setSelectedCandies(candyAllay);
+  };
+
+  const handleUnselectAll = () => {
+    // Unselect all candies
+    setSelectedCandies([]);
+  };
 
   return (
     <div>
@@ -189,13 +200,18 @@ const ProductPage = () => {
         <div><p className='text-2xl font-semibold'>Total Weight: {product?.data?.order_details?.bag_list[0]?.total_bag_weight }g</p></div>
        
         <div className='gap-10 flex'>
-           <button className="btn btn-lg w-56 disabled bg-[#D9E7D2] text-xl capitalize">Complete Order</button>
-        </div>
+        <button
+          className={`btn btn-lg w-56 ${isButtonDisabled ? 'disabled bg-[#D9E7D2]' : 'bg-[#C8F0BD]'} text-xl capitalize`}
+          disabled={isButtonDisabled}
+        >
+          Complete Order
+        </button>
+      </div>
       </div>
 
       <div className='gap-10 py-3 bg-[#9C6EAC] flex items-center justify-center'>
-        <button className="btn btn-lg w-80 px-10 font-semibold bg-[#C8F0BD] text-xl capitalize">Select All</button>
-        <button className="btn btn-lg w-80 px-16 font-semibold bg-[#C8F0BD] text-xl capitalize">Unselect All</button>
+        <button onClick={handleSelectAll} className="btn btn-lg w-80 px-10 font-semibold bg-[#C8F0BD] text-xl capitalize">Select All</button>
+        <button onClick={handleUnselectAll} className="btn btn-lg w-80 px-16 font-semibold bg-[#C8F0BD] text-xl capitalize">Unselect All</button>
         </div>
 
     </div>
