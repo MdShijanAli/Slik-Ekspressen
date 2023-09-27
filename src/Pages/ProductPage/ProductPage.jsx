@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { BiSolidCheckbox } from 'react-icons/bi';
 import { GiNotebook } from 'react-icons/gi';
 
@@ -57,11 +58,21 @@ const ProductPage = () => {
     setSelectedCandies([]);
   };
 
+  const handleOrderComplete=()=>{
+         toast.success("We have recieved your order. Thanks for your shopping")
+  }
+
+
   return (
-    <div>
+    <div className='relative'>
+
+
+
+
+
       <div className="flex justify-between px-10 my-3">
         <div>
-           <p className='text-2xl font-semibold'>DEV-{product?.data?.order_details?.bag_list[0]?.bag_tracking_id }</p>
+           <p className='xl:text-2xl text-xl font-semibold'>DEV-{product?.data?.order_details?.bag_list[0]?.bag_tracking_id }</p>
         </div>
         <div>
           <p className='flex gap-1 items-center text-lg font-semibold'><BiSolidCheckbox />
@@ -75,11 +86,11 @@ const ProductPage = () => {
                       <div className='flex items-center gap-3'>
                             <div className='flex gap-1 items-center'>
                             <GiNotebook />
-              <p className='text-lg'>  DEV-{product?.data?.order_details?.bag_list[0]?.bag_tracking_id }</p>
+              <p className='xl:text-lg text-sm'>  DEV-{product?.data?.order_details?.bag_list[0]?.bag_tracking_id }</p>
                             </div>
                             <div className='flex gap-1 items-center'>
                             <GiNotebook />
-              <p className='text-lg'> { product?.data?.order_details?.shipping_address?.first_name }</p>
+              <p className='xl:text-lg text-sm'> { product?.data?.order_details?.shipping_address?.first_name }</p>
                             </div>
                       </div>
             
@@ -90,11 +101,11 @@ const ProductPage = () => {
 
                      <div className='flex items-center gap-3'>
                         <div>
-                             <p className='text-lg'>Bag 1 of 1</p>
+                             <p className='xl:text-lg text-sm'>Bag 1 of 1</p>
                          </div>
                          <div className='flex gap-1 items-center'>
                              <GiNotebook />
-              <p className='text-lg'> Weight {calculateTotalWeight()}g of {product?.data?.order_details?.bag_list[0]?.total_bag_weight }g</p>
+              <p className='xl:text-lg text-sm'> Weight {calculateTotalWeight()}g of {product?.data?.order_details?.bag_list[0]?.total_bag_weight }g</p>
                           </div>
                       </div>
                          
@@ -103,16 +114,16 @@ const ProductPage = () => {
           
         </div>
         <div>
-          <p className='font-semibold text-2xl'>Packing: { product?.data?.order_details?.shipping_address?.first_name }</p>
+          <p className='font-semibold xl:text-2xl text-xl'>Packing: { product?.data?.order_details?.shipping_address?.first_name }</p>
         </div>
       </div>
       <hr className='border-[2px]'/>
       
 
-      <div className='grid grid-cols-3 gap-24 ml-72 mr-40'> 
+      <div className='grid grid-cols-3 xl:gap-24 gap-10 2xl:ml-72 xl:ml-36 ml-0 mr-0 px-10 xl:px-0 xl:mr-16 2xl:mr-40'> 
                     <div>
                                 <div className='flex gap-1 items-center justify-end my-3'>
-                                      <p className='text-2xl font-semibold'>  Left Alley</p>
+                                      <p className='xl:text-2xl text-xl font-semibold'>  Left Alley</p>
                                       <GiNotebook />
                                 </div>
                                 <div className='flex justify-end'>
@@ -130,8 +141,8 @@ const ProductPage = () => {
                                                  <input onChange={() => handleCheckboxChange(allay)}
                                                       type="checkbox"
                                             checked={selectedCandies.includes(allay)}
-                                            className="checkbox checkbox-info w-7 h-7" />
-                                                 <div className="label-text w-40 h-40">
+                                            className="checkbox checkbox-info xl:w-7 xl:h-7 w-5 h-5" />
+                                                 <div className="label-text xl:w-40 xl:h-40 w-20 h-20">
                                                      <img src={allay?.image} alt="" />
                                                  </div>
                                                </label>
@@ -145,7 +156,7 @@ const ProductPage = () => {
                     </div>
                     <div>
                                 <div className='flex gap-1 items-center justify-end my-3'>
-                                      <p className='text-2xl font-semibold'>  Right Alley</p>
+                                      <p className='xl:text-2xl text-xl font-semibold'>  Right Alley</p>
                                       <GiNotebook />
                                 </div>
                                 <div className='flex justify-end'>
@@ -160,8 +171,8 @@ const ProductPage = () => {
                                  <label className="cursor-pointer label flex items-center">
                                    <input onChange={() => handleCheckboxChange(allay)}
                                                       type="checkbox"
-                                            checked={selectedCandies.includes(allay)} className="checkbox checkbox-info w-7 h-7" />
-                                   <div className="label-text w-40 h-40">
+                                            checked={selectedCandies.includes(allay)} className="checkbox checkbox-info xl:w-7 xl:h-7 w-5 h-5" />
+                                   <div className="label-text xl:w-40 xl:h-40 w-20 h-20">
                                        <img src={allay?.image} alt="" />
                                    </div>
                                  </label>
@@ -170,9 +181,9 @@ const ProductPage = () => {
                           }
                       
                     </div>
-                    <div className='mr-20'>
+                    <div className='2xl:mr-20 xl:mr-16'>
                                 <div className='flex justify-end my-3'>
-                                      <p className='text-2xl font-semibold'> Missing Candies</p>
+                                      <p className='xl:text-2xl text-xl font-semibold'> Missing Candies</p>
                                       
                                 </div>
                                 <div className='flex justify-end'>
@@ -187,21 +198,22 @@ const ProductPage = () => {
       </div>
 
       <div className='flex items-center justify-between px-10 my-5'>
-        <div><p className='text-2xl font-semibold'>Bag Weight: {product?.data?.order_details?.bag_list[0]?.total_bag_weight }g</p></div>
-        <div><p className='text-2xl font-semibold'>1 out of 1  bag</p></div>
-        <div className='gap-10 flex'>
-        <button className="btn btn-lg w-56 bg-[#C8F0BD] text-xl capitalize">Previous Bag</button>
-        <button className="btn btn-lg w-56 disabled bg-[#D9E7D2] text-xl capitalize">Next Bag</button>
+        <div><p className='xl:text-2xl text-xl font-semibold'>Bag Weight: {product?.data?.order_details?.bag_list[0]?.total_bag_weight }g</p></div>
+        <div><p className='xl:text-2xl text-xl font-semibold'>1 out of 1  bag</p></div>
+        <div className='xl:gap-10 gap-5 flex'>
+        <button className="btn xl:btn-lg btn-md xl:w-56 w-40 bg-[#C8F0BD] xl:text-xl text-lg capitalize">Previous Bag</button>
+        <button className="btn xl:btn-lg btn-md xl:w-56 w-40 disabled bg-[#D9E7D2] xl:text-xl text-lg capitalize">Next Bag</button>
         </div>
       </div>
       <hr />
 
-      <div className='flex items-center justify-between px-10 my-5'>
-        <div><p className='text-2xl font-semibold'>Total Weight: {product?.data?.order_details?.bag_list[0]?.total_bag_weight }g</p></div>
+      <div className='flex items-center justify-between px-10 my-5 mb-28'>
+        <div><p className='xl:text-2xl text-xl font-semibold'>Total Weight: {product?.data?.order_details?.bag_list[0]?.total_bag_weight }g</p></div>
        
         <div className='gap-10 flex'>
-        <button
-          className={`btn btn-lg w-56 ${isButtonDisabled ? 'disabled bg-[#D9E7D2]' : 'bg-[#C8F0BD]'} text-xl capitalize`}
+          <button
+            onClick={handleOrderComplete}
+          className={`btn xl:btn-lg btn-md w-56  xl:text-xl text-lg ${isButtonDisabled ? 'disabled bg-[#D9E7D2]' : 'bg-[#C8F0BD]'} capitalize`}
           disabled={isButtonDisabled}
         >
           Complete Order
@@ -209,10 +221,12 @@ const ProductPage = () => {
       </div>
       </div>
 
-      <div className='gap-10 py-3 bg-[#9C6EAC] flex items-center justify-center'>
-        <button onClick={handleSelectAll} className="btn btn-lg w-80 px-10 font-semibold bg-[#C8F0BD] text-xl capitalize">Select All</button>
-        <button onClick={handleUnselectAll} className="btn btn-lg w-80 px-16 font-semibold bg-[#C8F0BD] text-xl capitalize">Unselect All</button>
-        </div>
+  {/* Second Section */}
+  <div className='fixed bottom-0 left-0  right-0 py-3 bg-[#9C6EAC] flex items-center gap-5 justify-center z-10'>
+    <button onClick={handleSelectAll} className="btn xl:btn-lg btn-md xl:w-80 w-60 px-10  font-semibold bg-[#C8F0BD] xl:text-xl text-lg capitalize">Select All</button>
+    <button onClick={handleUnselectAll} className="btn xl:btn-lg btn-md xl:w-80 w-60 px-16  font-semibold bg-[#C8F0BD] xl:text-xl text-lg capitalize">Unselect All</button>
+  </div>
+
 
     </div>
   );

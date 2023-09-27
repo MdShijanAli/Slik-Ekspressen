@@ -1,35 +1,36 @@
 import { useEffect, useState } from "react";
-import image from "../../assets/_W7A5101_fritlagt 1.png"
+import image from "../../assets/_W7A5101_fritlagt 1.png";
 import { Link } from "react-router-dom";
 
 const Button = () => {
-
+  // const history = useHistory();
   const [product, setProduct] = useState({});
-  // const [candies, setCandies] = useState({});
+  // const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    fetch('packing.json')
-      .then(res => res.json())
-      .then(data => {
-      setProduct(data)
-    })
-  }, [])
+    fetch("packing.json")
+      .then((res) => res.json())
+      .then((data) => {
+        setProduct(data);
+      });
+  }, []);
 
+  const handleReload = () => {
+    window.location.href = "/"
+  }
+ 
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <Link to="/product">
-      <label htmlFor="add_order" >
-          <div className="btn btn-xl text-xl capitalize font-semibold w-40 btn-success">
+      {/* <Link to="/product"> */}
+      <label  htmlFor="add_order" >
+          <div  className="btn btn-xl lg:text-xl text:md capitalize font-semibold w-40 btn-success">
              Add Order
         </div>
       </label>
-      </Link>
+      {/* </Link> */}
       
-
-
-
-
+   
       <input type="checkbox" id="add_order" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box w-8/12 max-w-3xl p-0 rounded-md pb-5">
@@ -40,7 +41,7 @@ const Button = () => {
 
           
           <div className="grid grid-cols-5 mx-10">
-            <div className="text-xl col-span-2">
+            <div className="xl:text-xl md:text-sm col-span-2">
               <p className="my-10">Weight: { product?.data?.order_details?.bag_list[0]?.total_bag_weight}g</p>
               <p className="my-10">Bag Name: { product?.data?.order_details?.bag_list[0]?.name}</p>
               <p className="my-10">Bag no: 1 out of 1</p>
@@ -54,8 +55,8 @@ const Button = () => {
           </div>
 
           <div className='gap-5  flex items-center justify-end pr-5'>
-                       <button className="btn w-40 mt-5 h-12 font-bold bg-[#C8F0BD] text-xl capitalize">Stop Packing</button>
-                       <Link to="/product"><button className="btn w-40 mt-5 h-12 font-bold bg-[#C8F0BD] text-xl capitalize">Start Mixing</button></Link>
+                       <button onClick={handleReload} className="btn xl:w-40 md:w-32 mt-5 h-12 font-bold bg-[#C8F0BD] xl:text-xl md:text-md capitalize">Stop Packing</button>
+                       <Link to="/product"><button className="btn xl:w-40 md:w-32 mt-5 h-12 font-bold bg-[#C8F0BD] xl:text-xl md:text-md capitalize">Start Mixing</button></Link>
           </div>
 
 
@@ -64,6 +65,10 @@ const Button = () => {
         </div>
         <label className="modal-backdrop" htmlFor="add_order">Close</label>
       </div>
+
+
+
+      
 </div>
   );
 };
