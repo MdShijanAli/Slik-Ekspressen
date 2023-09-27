@@ -4,10 +4,11 @@ import toast from 'react-hot-toast';
 import { BiSolidCheckbox, BiUserCircle } from 'react-icons/bi';
 import { GiNotebook, GiWeight } from 'react-icons/gi';
 import { PiAlignLeft, PiAlignRight } from 'react-icons/pi';
+import Modal from './Modal';
 
 
-const ProductPage = () => {
-
+const ProductPage = ({val}) => {
+  console.log(val)
   const [product, setProduct] = useState({});
   // const [candies, setCandies] = useState({});
 
@@ -64,8 +65,15 @@ const ProductPage = () => {
   }
 
 
+ 
+
+
   return (
-    <div className='relative'>
+    <div className={`${val}`}>
+
+
+
+<Modal />
 
 
 
