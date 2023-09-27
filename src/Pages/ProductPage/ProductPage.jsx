@@ -1,8 +1,9 @@
 
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { BiSolidCheckbox } from 'react-icons/bi';
-import { GiNotebook } from 'react-icons/gi';
+import { BiSolidCheckbox, BiUserCircle } from 'react-icons/bi';
+import { GiNotebook, GiWeight } from 'react-icons/gi';
+import { PiAlignLeft, PiAlignRight } from 'react-icons/pi';
 
 
 const ProductPage = () => {
@@ -89,7 +90,7 @@ const ProductPage = () => {
               <p className='xl:text-lg text-sm'>  DEV-{product?.data?.order_details?.bag_list[0]?.bag_tracking_id }</p>
                             </div>
                             <div className='flex gap-1 items-center'>
-                            <GiNotebook />
+                            <BiUserCircle />
               <p className='xl:text-lg text-sm'> { product?.data?.order_details?.shipping_address?.first_name }</p>
                             </div>
                       </div>
@@ -104,7 +105,7 @@ const ProductPage = () => {
                              <p className='xl:text-lg text-sm'>Bag 1 of 1</p>
                          </div>
                          <div className='flex gap-1 items-center'>
-                             <GiNotebook />
+                             <GiWeight />
               <p className='xl:text-lg text-sm'> Weight {calculateTotalWeight()}g of {product?.data?.order_details?.bag_list[0]?.total_bag_weight }g</p>
                           </div>
                       </div>
@@ -124,7 +125,7 @@ const ProductPage = () => {
                     <div>
                                 <div className='flex gap-1 items-center justify-end my-3'>
                                       <p className='xl:text-2xl text-xl font-semibold'>  Left Alley</p>
-                                      <GiNotebook />
+                                      <PiAlignLeft  className='xl:w-16 xl:h-8 w-6 h-6'/>
                                 </div>
                                 <div className='flex justify-end'>
                                     <hr className='w-11/12 '/>      
@@ -137,7 +138,7 @@ const ProductPage = () => {
                                  
                                       <div><p>{ allay?.total_amount} × { allay?.short_code}</p></div>
                                          <div className="form-control ">
-                                               <label className="cursor-pointer label flex items-center">
+                                               <label className="cursor-pointer label flex gap-3 items-center">
                                                  <input onChange={() => handleCheckboxChange(allay)}
                                                       type="checkbox"
                                             checked={selectedCandies.includes(allay)}
@@ -157,7 +158,7 @@ const ProductPage = () => {
                     <div>
                                 <div className='flex gap-1 items-center justify-end my-3'>
                                       <p className='xl:text-2xl text-xl font-semibold'>  Right Alley</p>
-                                      <GiNotebook />
+                                      <PiAlignRight   className='xl:w-16 xl:h-8 w-6 h-6'/>
                                 </div>
                                 <div className='flex justify-end'>
                                     <hr className='w-10/12 '/>      
@@ -168,7 +169,7 @@ const ProductPage = () => {
                              rightAllay?.map(allay=> <div key={allay?.id} className='flex items-center gap-3 justify-end my-10'>  
                                <div><p>{ allay?.total_amount} × { allay?.short_code}</p></div>
                            <div className="form-control ">
-                                 <label className="cursor-pointer label flex items-center">
+                                 <label className="cursor-pointer label flex gap-3 items-center">
                                    <input onChange={() => handleCheckboxChange(allay)}
                                                       type="checkbox"
                                             checked={selectedCandies.includes(allay)} className="checkbox checkbox-info xl:w-7 xl:h-7 w-5 h-5" />
@@ -201,8 +202,8 @@ const ProductPage = () => {
         <div><p className='xl:text-2xl text-xl font-semibold'>Bag Weight: {product?.data?.order_details?.bag_list[0]?.total_bag_weight }g</p></div>
         <div><p className='xl:text-2xl text-xl font-semibold'>1 out of 1  bag</p></div>
         <div className='xl:gap-10 gap-5 flex'>
-        <button className="btn xl:btn-lg btn-md xl:w-56 w-40 bg-[#C8F0BD] xl:text-xl text-lg capitalize">Previous Bag</button>
-        <button className="btn xl:btn-lg btn-md xl:w-56 w-40 disabled bg-[#D9E7D2] xl:text-xl text-lg capitalize">Next Bag</button>
+        <button className="btn  btn-md xl:w-56 w-40 bg-[#C8F0BD] xl:text-xl text-lg capitalize">Previous Bag</button>
+        <button className="btn  btn-md xl:w-56 w-40 disabled bg-[#D9E7D2] xl:text-xl text-lg capitalize">Next Bag</button>
         </div>
       </div>
       <hr />
@@ -213,7 +214,7 @@ const ProductPage = () => {
         <div className='gap-10 flex'>
           <button
             onClick={handleOrderComplete}
-          className={`btn xl:btn-lg btn-md w-56  xl:text-xl text-lg ${isButtonDisabled ? 'disabled bg-[#D9E7D2]' : 'bg-[#C8F0BD]'} capitalize`}
+          className={`btn  btn-md w-56  xl:text-xl text-lg ${isButtonDisabled ? 'disabled bg-[#D9E7D2]' : 'bg-[#C8F0BD]'} capitalize`}
           disabled={isButtonDisabled}
         >
           Complete Order
@@ -223,8 +224,8 @@ const ProductPage = () => {
 
   {/* Second Section */}
   <div className='fixed bottom-0 left-0  right-0 py-3 bg-[#9C6EAC] flex items-center gap-5 justify-center z-10'>
-    <button onClick={handleSelectAll} className="btn xl:btn-lg btn-md xl:w-80 w-60 px-10  font-semibold bg-[#C8F0BD] xl:text-xl text-lg capitalize">Select All</button>
-    <button onClick={handleUnselectAll} className="btn xl:btn-lg btn-md xl:w-80 w-60 px-16  font-semibold bg-[#C8F0BD] xl:text-xl text-lg capitalize">Unselect All</button>
+    <button onClick={handleSelectAll} className="btn xl:btn-md btn-md xl:w-80 w-60 px-10  font-semibold bg-[#C8F0BD] xl:text-xl text-lg capitalize">Select All</button>
+    <button onClick={handleUnselectAll} className="btn xl:btn-md btn-md xl:w-80 w-60 px-16  font-semibold bg-[#C8F0BD] xl:text-xl text-lg capitalize">Unselect All</button>
   </div>
 
 
