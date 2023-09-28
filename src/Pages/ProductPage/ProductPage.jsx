@@ -32,10 +32,10 @@ const ProductPage = ({val}) => {
   const handleCheckboxChange = (allay) => {
     setSelectedCandies((prevSelectedCandies) => {
       if (prevSelectedCandies.includes(allay)) {
-        // Candy is already selected, so remove it
+       
         return prevSelectedCandies.filter((candy) => candy !== allay);
       } else {
-        // Candy is not selected, so add it
+       
         return [...prevSelectedCandies, allay];
       }
     });
@@ -129,7 +129,7 @@ const ProductPage = ({val}) => {
       <hr className='border-[2px]'/>
       
 
-      <div className='grid grid-cols-3 xl:gap-24 gap-10 2xl:ml-72 xl:ml-36 ml-0 mr-0 px-10 xl:px-0 xl:mr-16 2xl:mr-40'> 
+      <div className='grid grid-cols-3 xl:gap-24 gap-10 2xl:ml-64 xl:ml-36 ml-0 mr-0 px-10 xl:px-0 xl:mr-16 2xl:mr-40'> 
                     <div>
                                 <div className='flex gap-1 items-center justify-end my-3'>
                                       <p className='xl:text-2xl text-xl font-semibold'>  Left Alley</p>
